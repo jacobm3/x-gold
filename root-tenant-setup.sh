@@ -89,7 +89,7 @@ token_policies       ["root"]
 identity_policies    []
 policies             ["root"]
 
-$ vault token revoke -self
+$ vault token revoke -self -mode=orphan
 Success! Revoked token (if it existed)
 $ vault secrets list
 Error listing secrets engines: Error making API request.
