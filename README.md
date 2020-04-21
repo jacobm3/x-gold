@@ -109,7 +109,7 @@ Code: 403. Errors:
 
 ## Deliver proj-01 and proj-02 Vault access packet to owners
 
-Deliver the 'wrapping_token', Vault URL, and use instructions to the intended owner of the new namespace. 
+Deliver the 'wrapping_token', Vault URL, and usage instructions to the intended owner of the new namespace. 
 
 proj-01 owner receives namespace path (us/upstream/proj-01) and  unwraps their wrapping_token (s.mCt7OmqE1bUKHxBweGc2Bkoy.5s6lC)
 
