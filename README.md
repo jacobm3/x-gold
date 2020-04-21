@@ -75,10 +75,12 @@ for each namespace:
 These values are saved and delivered to project admins as needed. 
 
 ## Revoke Root Token
-Revoke the root token, so no individual other than project owners can access their secrets. Verify you're not able to access any Vault secrets with that token.
+Revoke the root token, so no individual other than project owners can access their secrets. Orphan mode is important if you have child tokens like used in this example. Configuring the project namespaces with authentication methods other than token can eliminate the need to use orphan mode when revoking the root token.
+
+Verify you're not able to access any Vault secrets with that token.
 
 ```
-$ vault login  # <-- root token
+$ vault login  -mode=orphan # <-- root token
 Token (will be hidden):
 Success! You are now authenticated. The token information displayed below
 is already stored in the token helper. You do NOT need to run "vault login"
