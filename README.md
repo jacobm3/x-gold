@@ -49,7 +49,7 @@ For more info on response wrapping, see:
 https://www.vaultproject.io/docs/concepts/response-wrapping
 https://learn.hashicorp.com/vault/secrets-management/sm-cubbyhole
 
-## Response wrapping tokens
+## Response Wrapping Tokens
 
 That loop will produce a log (namespace-token-log.txt) with output like this, 
 for each namespace:
@@ -74,7 +74,8 @@ for each namespace:
 
 These values are saved and delivered to project admins as needed. 
 
-Revoke the root token, so no individual other than project owners can access their secrets.
+## Revoke Root Token
+Revoke the root token, so no individual other than project owners can access their secrets. Verify you're not able to access any Vault secrets with that token.
 
 ```
 $ vault login  # <-- root token
@@ -104,7 +105,9 @@ Code: 403. Errors:
 * permission denied
 ```
 
-Deliver the 'wrapping_token' to the intended owner of the new namespace. 
+## Deliver proj-01 and proj-02 Vault access packet to owners
+
+Deliver the 'wrapping_token', Vault URL, and use instructions to the intended owner of the new namespace. 
 
 proj-01 owner receives namespace path (us/upstream/proj-01) and  unwraps their wrapping_token (s.mCt7OmqE1bUKHxBweGc2Bkoy.5s6lC)
 
@@ -133,10 +136,11 @@ vault kv put kv-v2/my-secret my-value=some-random-value
 vault kv get kv-v2/my-secret
 ```
 
+## Verify proj-02 token can't access proj-01 secrets.
+
 Unwrap proj-02 token, login and attempt to access proj-01 secret.
 
-Attempt to access proj-01 with the original root token.
-
+## Regenerate and Revoke new Root Token
 If root policy privileges are required for additional administration, regenerate root token with quorum of unseal key holders: 
 https://learn.hashicorp.com/vault/operations/ops-generate-root
 
