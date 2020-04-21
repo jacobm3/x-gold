@@ -11,9 +11,7 @@ It involves 3 personas:
 - Project-02 admin (tries to access Project-01 secrets)
 
 
-## Login with root token
-
-## Create top level namespace names
+## Login with root token and create top level namespace names
 ```
 ns1="us"
 ns1a="upstream"
