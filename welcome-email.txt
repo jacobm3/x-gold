@@ -1,0 +1,29 @@
+Subject: Vault Access Packet
+
+Welcome to Hashicorp Vault! 
+
+Vault let's you manage secrets and protect sensitive data, tokens, passwords, generate certificates and encryption keys.
+
+Your initial Vault token is protected by a one-time-use wrapping token: s.mCt7OmqE1bUKHxBweGc2Bkoy.5s6lC
+
+You can unwrap your token from the CLI:
+
+export VAULT_ADDR=https://our-vault-server.us.com:8200/
+VAULT_TOKEN=s.mCt7OmqE1bUKHxBweGc2Bkoy.5s6lC vault unwrap
+
+If you receive an error when using your one-time wrapping token, please contact security@us.com / 555-555-1234 immediately.
+
+Store this output safely and use the 'token' field to access your namespace:
+export VAULT_NAMESPACE=us/upstream/proj-01
+vault secrets list
+
+
+You can see the full details and metadata of wrapping token in the attached wrapping_token.txt
+
+ # wrapping_token:                  s.mCt7OmqE1bUKHxBweGc2Bkoy.5s6lC
+ # wrapping_accessor:               X6bop97eBKiS6fQhnwP6oUnw.5s6lC
+ # wrapping_token_ttl:              8760h
+ # wrapping_token_creation_time:    2020-04-21 00:17:08.4478966 -0500 CDT
+ # wrapping_token_creation_path:    auth/token/create
+ # wrapped_accessor:                JdegSfcmBGpu4pv9GAIbhtco.5s6lC
+
