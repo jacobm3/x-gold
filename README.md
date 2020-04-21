@@ -80,7 +80,7 @@ Revoke the root token, so no individual other than project owners can access the
 Verify you're not able to access any Vault secrets with that token.
 
 ```
-$ vault login  -mode=orphan # <-- root token
+$ vault login # <-- root token
 Token (will be hidden):
 Success! You are now authenticated. The token information displayed below
 is already stored in the token helper. You do NOT need to run "vault login"
@@ -96,7 +96,7 @@ token_policies       ["root"]
 identity_policies    []
 policies             ["root"]
 
-$ vault token revoke -self
+$ vault token revoke -self -mode=orphan
 Success! Revoked token (if it existed)
 $ vault secrets list
 Error listing secrets engines: Error making API request.
