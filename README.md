@@ -23,7 +23,7 @@ vault namespace create -namespace $ns1 $ns1b
 ```
 
 ## Create namespaces, policies, and tokens: 
-   - batch of namespaces under us/upstream
+   - batch of namespaces under "us/upstream"
    - space-admin policy in each namespace
    - response-wrapped token with space-admin policy attached
 
