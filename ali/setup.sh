@@ -1,3 +1,4 @@
+# With a Vault root token
 ns=ali-web
 vault namespace create $ns
 
@@ -14,7 +15,7 @@ vault auth enable alicloud
 vault write auth/alicloud/role/web-instance-role arn='acs:ram::5657185762276978:role/web-instance-role'
 
 
-# On the web server, run:
+# On the web server get STS token from instance metadata service:
 curl 'http://100.100.100.200/latest/meta-data/ram/security-credentials/web-instance-role'
  {
   "AccessKeyId" : "STS.NUvuKYpeAcTxxxxxxxdGxHnz",
@@ -25,8 +26,7 @@ curl 'http://100.100.100.200/latest/meta-data/ram/security-credentials/web-insta
   "Code" : "Success"
 }
 
-Use these fields in the following command from the web server:
-
+Use STS token to get Vault token:
 vault login -method=alicloud \
   access_key=STS.xxxxxxxxxxxxxxxxxxxxxx \
   secret_key=ACGQ7u1xxxxxxxxxxxxxxxxxxxxxxxppjKrKQvoJA \
@@ -56,3 +56,6 @@ token_meta_role_id          345377512072480607
 token_meta_role_name        web-instance-role
 token_meta_user_id          n/a
 token_meta_account_id       5657185762276978
+
+Use the Vault token to access secrets engines per Vault policies you received.
+
