@@ -2,9 +2,9 @@
 
 ## Terminology
 
-RAM = Resource Access Manager
-ECS = Elastic Compute Service
-OSS = Object Storage Service
+RAM = Resource Access Manager  
+ECS = Elastic Compute Service  
+OSS = Object Storage Service  
 
 | AWS  | Azure  | Alicloud |
 |---|---|---|
