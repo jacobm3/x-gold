@@ -12,7 +12,9 @@ vault auth enable alicloud
 # its local instance metadata
 
 # client metadata role
-vault write auth/alicloud/role/web-instance-role arn='acs:ram::5657185762276978:role/web-instance-role'
+vault write auth/alicloud/role/web-instance-role \
+  token_policies="space-admin" \
+  arn='acs:ram::5657185762276978:role/web-instance-role'
 
 
 # On the web server get STS token from instance metadata service:
@@ -58,4 +60,43 @@ token_meta_user_id          n/a
 token_meta_account_id       5657185762276978
 
 Use the Vault token to access secrets engines per Vault policies you received.
+
+
+With Vault root token, create a policy in the ali-web namespace for the web server to be assigned with it authenticates.
+
+vault policy write -namespace=ali-web space-admin - <<EOF
+path "*" {
+capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+EOF
+
+
+
+Cron entry for DIY token agent:
+*/5 * * * * ~/bin/ram-vault-token.sh >> ~/.ram-vault-token.sh.log 2>&1
+
+#!/bin/bash
+
+export VAULT_ADDR=https://vault.jacobm.ali.hashidemos.io:8200
+export VAULT_NAMESPACE=ali-web
+
+# Use RAM instance metadata to authenticate to Vault
+
+json=`curl -s 'http://100.100.100.200/latest/meta-data/ram/security-credentials/web-instance-role'`
+
+#echo $json | jq; echo;
+
+AccessKeyId=`echo $json | jq -r .AccessKeyId`
+AccessKeySecret=`echo $json | jq -r .AccessKeySecret`
+SecurityToken=`echo $json | jq -r .SecurityToken`
+
+region=`curl -s http://100.100.100.200/latest/meta-data/region-id`
+
+vault login -method=alicloud \
+  access_key=$AccessKeyId \
+  secret_key=$AccessKeySecret \
+  security_token=$SecurityToken \
+  region=$region >/dev/null 2>&1
+
+
 
