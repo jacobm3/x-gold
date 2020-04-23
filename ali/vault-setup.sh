@@ -11,7 +11,7 @@ vault auth enable alicloud
 # its local instance metadata
 
 # client metadata role
-vault write auth/alicloud/role/web-instance role arn='acs:ram::5657185762276978:role/web-instance-role'
+vault write auth/alicloud/role/web-instance-role arn='acs:ram::5657185762276978:role/web-instance-role'
 
 
 
