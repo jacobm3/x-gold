@@ -100,3 +100,30 @@ vault login -method=alicloud \
 
 
 
+# Vault root token cmds
+export VAULT_ADDR=https://vault.jacobm.ali.hashidemos.io:8200
+export VAULT_NAMESPACE=ali-web
+export VAULT_CN=vault.jacobm.ali.hashidemos.io
+export WEB_CN=web.jacobm.ali.hashidemos.io
+
+vault secrets enable pki
+vault secrets tune -max-lease-ttl=87600h pki
+vault write pki/root/generate/internal common_name=$VAULT_CN ttl=87600h
+vault write pki/config/urls \
+    issuing_certificates="${VAULT_ADDR}/v1/pki/ca" \
+    crl_distribution_points="${VAULT_ADDR}/v1/pki/crl"
+vault write pki/roles/$WEB_CN \
+    allowed_domains=$WEB_CN \
+    allow_bare_domains=true \
+    allow_subdomains=true max_ttl=72h
+    
+
+# Run from web server to obtain new certificate and key:
+export VAULT_ADDR=https://vault.jacobm.ali.hashidemos.io:8200
+export VAULT_NAMESPACE=ali-web
+export WEB_CN=web.jacobm.ali.hashidemos.io
+export VAULT_TOKEN=`cat ~vault-agent/.vault-token`
+vault write pki/issue/$WEB_CN common_name=$WEB_CN
+
+
+
