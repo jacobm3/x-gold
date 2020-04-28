@@ -22,4 +22,11 @@ OSS = Object Storage Service
 | EC2  | Virtual Machines  | ECS |
 | S3  | Storage  |  OSS |  
 
-## 
+## Alicloud Auth Method
+
+The alicloud auth method provides an automated mechanism to retrieve a Vault token for AliCloud entities based on a RAM machine identity, similar to an EC2 instance role or an Azure managed identity.
+
+Documentation:
+https://www.vaultproject.io/docs/auth/alicloud
+
+
