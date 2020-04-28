@@ -2,6 +2,9 @@
 
 The AliCloud secrets engine dynamically generates AliCloud access tokens based on RAM policies, or AliCloud STS credentials based on RAM roles. 
 
+Documentation:
+https://www.vaultproject.io/docs/secrets/alicloud
+
 ## Setup
 
 Execute this configuration with a Vault root token:
